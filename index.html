@@ -8,6 +8,37 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="left">
+      <form id="form" action="#">
+        <h1>LATEST WEATHER</h1>
+        <label class="toggle">
+          <input id="myCheck" type="checkbox" />
+          <span class="slider"></span>
+          <span class="labels" data-on="C" data-off="F"></span>
+        </label>
+        <input
+          type="text"
+          name="location"
+          id="location"
+          placeholder="Enter Location"
+          autocomplete="off"
+        />
+        <button title="none" type="submit" id="btnSearch" class="search_button">
+          <img src="./images/search.png" alt="" />
+        </button>
+        <div>
+          <span id="displaySpan">
+            <img src="" alt="" id="icon" />
+            <span id="displayCity"></span>
+          </span>
+          <span id="display"></span>
+        </div>
+        <div id="gif">
+          <img id="gifImage" src="./images/sunny.jpg" alt="" />
+        </div>
+      </form>
+    </div>
+    <div id="right"></div>
     <script src="index.js"></script>
   </body>
 </html>

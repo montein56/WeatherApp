@@ -1,0 +1,197 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  grid-template-areas: "left right";
+  grid-template-columns: 1fr 3fr;
+  background-image: url(./images/noaa-0ETSZYPjvDo-unsplash.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+#left {
+  grid-area: left;
+}
+#right {
+  grid-area: right;
+}
+
+/* LEFT */
+#form {
+  display: flex;
+  flex-direction: column;
+  /* background-color: #99e6e2; */
+  background-color: transparent;
+  opacity: 50%;
+  height: 100vh;
+}
+#form div {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  color: white;
+  filter: brightness(4);
+  margin: 5vh;
+  font-size: 6vh;
+}
+#location {
+  padding: 10px 35px 10px 15px;
+  border: none;
+  border-radius: 100px;
+  outline: none;
+  margin-left: 1vw;
+  width: 70%;
+}
+.search_button {
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-left: 60%;
+  margin-top: -4.5vh;
+}
+.search_button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  padding-top: 0.3vw;
+}
+#displaySpan {
+  text-align: left;
+}
+#display {
+  text-align: left;
+  margin-left: 2vw;
+  margin-top: 1vh;
+  color: white;
+  font-size: 2vh;
+  /* filter: brightness(8); */
+}
+#displayCity {
+  font-size: 1.5vw;
+  text-align: left;
+  margin-left: 2vw;
+  color: white;
+}
+#icon {
+  width: 3vw;
+  background: powderblue;
+  border-radius: 50%;
+  margin-left: 2vw;
+  margin-top: 3vh;
+}
+#gif {
+  margin-top: auto;
+  text-align: center;
+  padding: 2vh;
+}
+#gifImage {
+  height: 15vh;
+  /* width: 70%; */
+
+  /* height: 31vh; */
+  width: 60%;
+  /* text-align: center; */
+}
+/* RIGHT */
+
+#right img {
+  width: 100%;
+  height: 100vh;
+}
+
+/* TOGGLE SWITCH FOR C/F */
+.toggle {
+  --width: 80px;
+  --height: calc(var(--width) / 3);
+
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: var(--height);
+  cursor: pointer;
+  margin: 0 0 2vw 2vw;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--height);
+  background-color: #ee97df;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--height));
+  height: calc(var(--height));
+  border-radius: calc(var(--height) / 2);
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked + .slider {
+  background-color: #2196f3;
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(calc(var(--width) - var(--height)));
+}
+
+.toggle .labels {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  font-family: sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::after {
+  content: attr(data-off);
+  position: absolute;
+  right: 5px;
+  color: #4d4d4d;
+  opacity: 1;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s ease-in-out;
+  padding-right: 1vw;
+}
+
+.toggle .labels::before {
+  content: attr(data-on);
+  position: absolute;
+  left: 5px;
+  color: #ffffff;
+  opacity: 0;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+  transition: all 0.4s ease-in-out;
+  padding-left: 1vw;
+}
+
+.toggle input:checked ~ .labels::after {
+  opacity: 0;
+}
+
+.toggle input:checked ~ .labels::before {
+  opacity: 1;
+}
