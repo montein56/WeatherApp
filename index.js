@@ -4,14 +4,11 @@ function displayResults(newCity, weatherData, giffyUrl, unit) {
   const main = weatherData.main;
   const weather = weatherData.weather;
   let tempUnit = unit === "metric" ? "C" : "F";
-  // if (unit === "metric") {
-  //   tempUnit = "C";
-  // } else {
-  //   tempUnit = "F";
-  // }
+  displayCity.style.border = "none";
+
   document.getElementById(
     "icon"
-  ).src = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
+  ).src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 
   displayCity.innerText =
     `${newCity}`.toUpperCase() + `, ${weatherData.sys.country}`;
@@ -48,7 +45,8 @@ function changeUnits() {
   getInfo(newLocation, unit);
 }
 
-function searchLocation() {
+function searchLocation(e) {
+  e.preventDefault();
   const place = document.getElementById("location");
   const newLocation = place.value;
   const x = document.getElementById("myCheck").checked;
@@ -62,17 +60,25 @@ async function getWeather(newLocation, unit) {
     `https://api.openweathermap.org/data/2.5/weather?q=${newLocation}&appid=7cdfc03226332fb7b28028a76302e23a&units=${unit}`,
     { mode: "cors" }
   );
-  const json1 = await response1.json();
-  const response2 = await fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=2n7POPaMC5FWod3I9Ag5QQmYZ96U6CKP&s=${json1.weather[0].description}`,
-    { mode: "cors" }
-  );
-  const json2 = await response2.json();
-  return {
-    openWeather: json1,
-    giffy: json2,
-    city: newLocation,
-  };
+  try {
+    if (!response1.ok) throw new Error(`City ${newLocation} not found`);
+    const json1 = await response1.json();
+    const response2 = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=2n7POPaMC5FWod3I9Ag5QQmYZ96U6CKP&s=${json1.weather[0].main}`,
+      { mode: "cors" }
+    );
+    const json2 = await response2.json();
+    return {
+      openWeather: json1,
+      giffy: json2,
+      city: newLocation,
+    };
+  } catch (error) {
+    const displayCity = document.getElementById("displayCity");
+    displayCity.innerText = "Try entering a location again";
+    displayCity.style.border = "red solid 3px";
+    // alert(error);
+  }
 }
 
 function addListeners() {
@@ -82,3 +88,4 @@ function addListeners() {
   btnSearch.addEventListener("click", searchLocation);
 }
 addListeners();
+getInfo("delhi", "imperial");
